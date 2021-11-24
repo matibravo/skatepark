@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <h1>Skate Park</h1>
+  <div class="py-5">
+    <h2>Iniciar Sesión</h2>
+    <hr class="w-50" />
+    
+      <div class="form-group">
+        <div class="form-group">
+          <label>Email</label>
+          <input class="form-control w-50 m-auto" id="email" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input class="form-control w-50 m-auto" type="password" id="pass" />
+        </div>
+      </div>
+      <button  onclick="verificacion()" class="btn btn-success mb-3">Ingresar</button>
+      <p>¿Aún no tienes cuenta? <a href="/registro">Regístrate</a></p>
+    
+  </div>
+</div>
+
+<script>
+
+ 
+  const verificacion = async () => {
+    const email = document.getElementById('email').value;
+    const pass = document.getElementById('pass').value;
+    const payload = { email, pass };
+
+    try {
+      const { data: token } = await axios.post('/verify', payload);      
+      alert('Autenticación y autorización exitosa 🛹!');
+      window.location.href = `/Datos?token=${token}`;
+
+    } catch ({ response }) {      
+      const { data } = response;
+      const { error } = data;
+      alert(error);
+    }
+  }
+
+</script>

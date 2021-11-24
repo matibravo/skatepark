@@ -1,0 +1,96 @@
+<div class="container-fluid">
+  <h1>Skate Park</h1>
+  <div class="py-4">
+    <h2>Datos del perfil de <b>{{nombre}}</b></h2>
+    <hr class="w-50" />
+
+    <div class="form-group row w-50 m-auto">
+      <div class="form-group col-12 col-sm-6">
+        <input id="id" type="hidden" value="{{id}}">
+        <label>Email</label>
+        <input id="email" class="form-control m-auto" disabled value="{{email}}" />
+      </div>
+      <div class="form-group col-12 col-sm-6">
+        <label>Nombre</label>
+        <input id="nombre" class="form-control m-auto" value="{{nombre}}" />
+      </div>
+      <div class="form-group col-12 col-sm-6">
+        <label>Password</label>
+        <input id="password" type="password" class="form-control m-auto" value="{{password}}" />
+      </div>
+      <div class="form-group col-12 col-sm-6">
+        <label>Repita la password</label>
+        <input id="repitePass" type="password" class="form-control m-auto" value="{{password}}" />
+      </div>
+      <div class="form-group col-12 col-sm-6">
+        <label>Años de experiencia</label>
+        <input id="anios_experiencia" class="form-control m-auto" value="{{anios_experiencia}}" />
+      </div>
+      <div class="form-group col-12 col-sm-6">
+        <label>Especialidad</label>
+        <input id="especialidad" class="form-control m-auto" value="{{especialidad}}" />
+      </div>
+    </div>
+    <div class="mb-1">
+      <button onclick="updateSkater()" class="btn btn-primary">Actualizar</button>
+    </div>
+    <div>
+      <button onclick="deleteSkater({{id}})" class="btn btn-danger">Eliminar cuenta</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const getData = () => {
+    window.location.href = '/';    
+  }
+
+  const updateSkater = async () => {
+
+    const id = document.getElementById('id').value;
+    const nombre = document.getElementById('nombre').value;
+    const password = document.getElementById('password').value;
+    const repitePass = document.getElementById('repitePass').value;
+    const anios_experiencia = document.getElementById('anios_experiencia').value;
+    const especialidad = document.getElementById('especialidad').value;
+
+    const payload = { id, nombre, password, anios_experiencia, especialidad }
+
+    if (password === repitePass) {
+
+      try {
+
+        await axios.put('/skater', payload);
+        alert('Skater actualizado!');
+        getData();
+
+      } catch ({ response }) {
+        const { data } = response;
+        const { error } = data;
+        alert(error);
+      }
+    } else {
+      alert('Las contraseñas deben coincidir, por favor revisar');
+      document.getElementById('password').focus();
+    }
+  }
+
+  const deleteSkater = async (id) => {
+
+    if (confirm('¿Está seguro de querer eliminar su cuenta?')) {
+           
+      try {
+        await axios.delete(`/skater/${id}`);
+        alert('Skater eliminado!');
+        getData();
+
+      } catch ({ response }) {
+        const { data } = response;
+        const { error } = data;
+        alert(error);
+      }
+    }
+
+  }
+</script>

@@ -1,0 +1,62 @@
+<div class="container-fluid">
+  <h1>Skate Park</h1>
+  <div class="py-4">
+    <h2>Administración</h2>
+    <hr class="w-50" />
+    <table class="table w-50 m-auto">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Foto</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Años de experiencia</th>
+          <th scope="col">Especialidad</th>
+          <th scope="col">Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each skaters }}
+        <tr>
+          <th scope="row">{{@index }}</th>
+          <td>
+            <div>
+              <img src="/uploads/{{this.foto}}" alt="{{this.nombre}}" width="80px" height="70px" >
+            </div>
+          </td>
+          <td>{{this.nombre}}</td>
+          <td>{{this.anios_experiencia}}</td>
+          <td>{{this.especialidad}}</td>
+          <td>
+            <input type="checkbox" {{#if this.estado }} checked {{/if}} onclick="changeStatus({{this.id}}, this)" />
+          </td>
+        </tr> 
+        {{/each }}       
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+
+  const changeStatus = async (id, elemento) => {
+    
+    const estado = elemento.checked;
+
+    try {
+
+      await axios.put('/skaters', {
+        id,
+        estado
+      });
+      alert( estado 
+              ? 'Usuario habilitado para acceder al sistema de skatepark 🛹!!!'
+              : 'Usuario deshanilitado para acceder al sistema de skatepark 🛹!!!');
+
+
+    } catch ({ response }) {
+      const { data } = response;
+      const { error } = data;
+      alert(error);
+    }
+  }
+</script>

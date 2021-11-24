@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <h1>Skate Park</h1>
+
+  <div class="py-4">
+    <h2>Registro</h2>
+    <hr class="w-50" />
+
+    <form action="/skaters" method="post"  enctype="multipart/form-data">
+      <div class="form-group row w-50 m-auto">
+        <div class="form-group col-12 col-sm-6">
+          <label>Email</label>
+          <input id="email" class="form-control m-auto" name="email" required />
+        </div>
+        <div class="form-group col-12 col-sm-6">
+          <label>Nombre</label>
+          <input id="nombre" class="form-control m-auto" name="nombre" required />
+        </div>
+        <div class="form-group col-12 col-sm-6">
+          <label>Password</label>
+          <input id="pass1" class="form-control m-auto" name="pass1" type="password" required />
+        </div>
+        <div class="form-group col-12 col-sm-6">
+          <label>Repita la password</label>
+          <input id="pass2" class="form-control m-auto" type="password" required />
+        </div>
+        <div class="form-group col-12 col-sm-6">
+          <label>Años de experiencia</label>
+          <input id='aniosExp' class="form-control m-auto" name="aniosExp" required />
+        </div>
+        <div class="form-group col-12 col-sm-6">
+          <label>Especialidad</label>
+          <input id="especialidad" class="form-control m-auto" name="especialidad" required />
+        </div>
+        <div class="form-group col-12 col-sm-12">
+          <label>Foto de perfil</label>
+          <input id="foto" type="file" name="foto" required />
+        </div>
+      </div>
+      <button class="btn btn-info mb-3" onclick="validarDatos()" type="submit">Registrarme</button>
+      <p><a href="/Login"> Iniciar sesión</a></p>
+    </form>
+  </div>
+</div>
+
+<script>  
+
+  const validarDatos = () => {
+
+    let email = document.getElementById('email').value;
+    let nombre = document.getElementById('nombre').value;
+    let pass1 = document.getElementById('pass1').value;
+    let pass2 = document.getElementById('pass2').value;
+    let aniosExp = document.getElementById('aniosExp').value;
+    let especialidad = document.getElementById('especialidad').value;
+    let foto = document.getElementById('foto').value;
+
+    if (email, nombre, pass1, pass2, aniosExp, especialidad, foto) {      
+      
+      if (pass1 !== pass2) { 
+
+        alert('Las contraseñas no son iguales, favor revisar 🤪'); 
+        event.preventDefault();
+        document.getElementById('pass1').focus(); 
+
+        } 
+        else {
+          alert(`Felicitaciones ${nombre}, has sido registrado(a) al sistema de skatepark 🛹, pronto te daremos acceso!`);
+        }  
+    }
+    else {      
+      alert('Debes llenar todos los campos del formulario 🤪');
+    }
+  }
+
+</script>  
